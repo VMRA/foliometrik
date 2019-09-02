@@ -1,0 +1,20 @@
+Package: foliometrik
+Type: Package
+Date: 2019-08-30
+Title: An shiny application for semi-automatic taking of measurements from images of leaves
+Version: 0.1.0
+Authors: Victor Manuel Ramirez-Arrieta and Dennis Denis-Avila
+Maintainer: Victor Manuel Ramirez-Arrieta <victorm1990a@gmail.com>
+Description:
+    FoliometriK is an application for automated extraction of classic and geometric morphometric variables from digital images of plant leaves. Calculates linear measurements on plant leaves and process shapes with Geometric Morphometry tools. The purpose of this app is to facilitate the measurement of plant leaves and the study of their forms, from images in jpg, tiff and png file format.
+Imports:
+    shiny (>= 1.3.2),
+    shinyWidgets (>= 0.4.3),
+    shinyalert (>= 1.0),
+    shinyBS (>= 0.6.1),
+    EBImage,
+    Momocs (>= 1.2.9)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1

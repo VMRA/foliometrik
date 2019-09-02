@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1567223823820.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "669DA263",
+    "lastKnownWriteTime" : 1567224580,
+    "last_content_update" : 1567224580457,
+    "path" : "E:/dennis_work/hojas/FOLIOMETRIKA/FOLIOMETRIK_0.2.3/foliometrik/inst/shinyapp/server.R",
+    "project_path" : "inst/shinyapp/server.R",
+    "properties" : {
+        "cursorPosition" : "567,20",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
