@@ -1,9 +1,9 @@
 
 
  library(shiny); library(shinyalert)
-# library(shinyWidgets)
-# library(shinyBS)
-# library(EBImage); library(Momocs)
+library(shinyWidgets)
+ library(shinyBS)
+ library(EBImage); library(Momocs)
 source("functions.R"); source("run.R")
 
 
@@ -284,9 +284,8 @@ tabPanel(title = "Shape Descriptors", icon = icon("connectdevelop"),
                                                              hr(),
                                                              fillCol(
                                                                   shiny::column(width = 12, offset = 0,
-                                                                                tags$img(src = "L2.png", width = "30%"),
-                                                                                shiny::checkboxInput(inputId = "addLength1", label = "calculate Length 1", value = TRUE),
-                                                                                shiny::checkboxInput(inputId = "addLength2", label = "calculate Length 2", value = TRUE)),
+                                                                                tags$img(src = "L3.png", width = "30%"),
+                                                                                shiny::checkboxInput(inputId = "addLength1", label = "calculate lobe deepth", value = FALSE)),
 
                                                                   shiny::column(width = 12, offset = 7,  tags$img(src = "basalarea.png", width = "30%"),  br(), br(),
                                                                                 shiny::checkboxInput(inputId = "addbasallobearea", label = "calculate basal lobes area", value = FALSE))
@@ -503,7 +502,7 @@ tabPanel(title = "Leaf Measures", icon = icon("pagelines"),
 
 ),
 
-           tabPanel(title = "Help", icon = icon("info"))
+           tabPanel(title = "Help", icon = icon("info"), includeMarkdown("www/help.rmd"))
 ))
 
 

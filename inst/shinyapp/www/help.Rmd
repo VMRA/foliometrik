@@ -1,0 +1,99 @@
+---
+title: "FoliometriK help"
+output: 
+  html_document: 
+    theme: readable
+    toc: yes
+---
+
+
+___FoliometriK___ is an application for automated extraction of morphometric variables, both classic lineal dimensions and for geometric morphometry, from digital images of plant leaves to facilitate foliar studies. Pictures must have a homogeneous background and, preferably, they must include some known length reference element to establish scale otherwise measures will be taken in pixel units. Scale is not needed when objective in to obtain data for geometric morphometry (landmarks or Elliptic Fourier Descriptors). The object inside the picture is selected by clicking in it – because the same picture can show many leaves.
+
+## Installation Instructions:
+You must have installed ___R software___ and, if possible, ___RStudio___. You can download the latest versions of these two programs in: https://cran.r-project.org/bin/windows/base/ and http://www.rstudio.com/products/rstudio/download/, respectively.
+The app uses functions of the packages: `shiny`, `shinyalert`, `shinyWidgets`, `shinyBS` and `Momocs`. You can install these libraries from ___CRAN___ site by running the following code:
+
+
+```{r, eval=FALSE}
+install.packages (c("shiny", "shinyalert", "shinyWidgets", "shinyBS", "Momocs"),
+dependencies = TRUE, lib = .libPaths()[1])
+```
+
+
+
+It is also necessary to have install the package `EBImage`, from ___Bioconductor___ repository:
+
+```{r, eval=FALSE}
+source("https://bioconductor.org/biocLite.R")
+```
+
+
+```{r, eval=FALSE}
+biocLite("EBImage")
+```
+
+
+Finally, ___FoliometriK___ can be installed from github:
+
+```{r, , eval=FALSE}
+devtools::install_github("VMRA/foliometrik")
+```
+
+
+For this it is necessary to have the `devtools` package installed
+
+## Usage
+The application extracts in a supervised or semi- automatic way the following variables from the leave pictures: 
+
+-	Central axis length (defined automatically as the maximum distance or manually)
+-	Vertex length at basal lobes (if they exist)
+-	Maximum width of the leave.
+-	Width of the leave at the three main axe quartiles 
+-	Percentage of the main axe at which maximum width appear 
+-	Perimeter of the contour
+-	Blade area
+-	Lateral asymmetry area 
+-	Shape index (Surface area/ minimum external rectangle area).
+-	Internal angles (v1= base – Maximum width; v2= apical-maximum width and lateral right and left angles 
+-	If leaves have basal lobes, other three variables are added:
+
+    -   Width at peciolo level
+    -	Angle between lobes (from apical) 
+    -	Relative area of lobes (percentage of the anterior area of the leaves, using as divider the transversal axe at peciolo level).
+
+All these variables are stored in an output file, in CSV format, along with the basic data of the source image (name, dimensions in pixels, length of reference object, both in pixels and the user input unit). If multiple images are opened simultaneously, measurements will append in the same file as they are processed. Output landmark files can be saved in TPS format or NTS format, like Fourier descriptors that are saved in raw format (four coefficients for each harmonic per image) or as scores of Principal Component Analysis with all coefficients of a group of images (which is calculated when the image group finished processing). Also, by choice, the coordinates of the contours can be stored, as well as five temporary figures generated from each leave (landmarks, asymmetry, Fourier and internal angles). They are saved in an additional folder named _Graphics_FoliometriK_, just for checks anomalous cases rather than to be used in papers because they have relatively low resolution. If all initially loaded pictures have been taken in a standardized manner (at the same camera distance and orientation, therefore with the same scale), you can automatically process all of them, because the settings of first image are maintained for the rest, including the scale conversion factor. 
+
+### Idealized step sequence
+
+1.	Load the image or group of images
+    -	Images must be in __JPG__, __PNG__ or __TIFF__ formats and should not exceed pixels 1700 x 2300. It can be open any quantity of pictures, but the processing speed of these batches will depend on the services of the computer you use. As the actions of the image processing and saving data are independent of each other, it is possible to process several leaves of the same picture.
+2.	Select the color channel to use (or leave the default red)
+3.	In the first tab, binarized image, move the slider of cutting threshold until the contour is well identified and separated from the background.
+4.	With the erase option parts of the leaves can be removed (erasing black) or portions of the background (erasing white) (for example: petioles or voids within the leaf blade). Any handling error can be amended with the undo button.
+5.	Click once on the leave to extract coordinates (the outline should appear in an axes system in pixels). If an irregular figure appears, mark again elsewhere.
+6.	If the image contains a size reference scale, move to the Scaling tap otherwise go directly to set the leave central axis.
+    -	If pictures had an scale in the Scaling tab write object scale size and real units
+    -	If the reference object is too small, click and drag around it with the mouse to make a box and an extended zoom window will come out on the side 
+    -	Click in new positions to mark both ends of the scale equivalent to the specified size 
+    -	Press Apply 
+7.	Go to the tab Leaf axis and verify that the automatic selection of the major axis matches the length of the blade (from petiole to the apex) and preferably that leaves orientation is from right to left (petiole towards the coordinates origin).
+    -	You can use the arrow buttons to horizontally or vertically flip the contour (use this options with care since they affect the numerical results of the Fourier descriptors. If possible, it is recommended the use of the 180 degree rotation tool, instead).
+    -	By clicking on the ends of a line all contour is automatically rotated to this axis (manual).
+    -	To return to automatic axis identification (length greater radius) presses the Maximum distance button.
+8.	Go to the Output options tab 
+    -	Paste the full address of the folder where the results will be saved, or locate it by clicking the folder icon
+    -	Choose  whether you want to save, in addition to the measures, all contours coordinates and / or all figures generated for each leave
+    -	Select whether landmarks will be saved in TPS format (coordinates in a column, separated individuals start and end identifiers) or NTS (tabular form, all the coordinates of a configuration as columns in the same row).
+    -	Select whether to use a comma or a dot as a decimal.
+9.	Back to the Binarized image tab and press one of the two buttons that perform measurements, according to the research interest: "Analyze the above contour and go to Shape Descriptors" or "Analyze the above contour and go to Leaf and Measures page". 
+10.	If the goal are variables to describe the shape of leaves, in the Shape descriptors window contour landmarks can be automatically placed or extracted the elliptical Fourier descriptors.
+    -	Select the type of grid: radial - setting the number of equiangular radii and their origin (Basal, half the length or the centroid of the contour) or parallel - equidistant and perpendicular to the axis of the leave.
+    -	In the Contour tab elliptical Fourier descriptors for the contour can be obtained, by previously setting the number of desired harmonic (3 to 50) depending on the degree of complexity of the leave. 
+    -	At the end of the image batch processing if you want to calculate the scores of Principal Component Analysis with all calculated coefficients, press the PCA button (it will only be calculated for the contours obtained so far and if they have not yet obtained an error message will pop out).
+11.	With the button with the “Save” icon, the results of the current image is saved. If you do not want to save it, you can move to the next image without saving, or automatically save it and move on to the next image to process (Save and next).
+12	Selected parameters for the finished image will remain constant by default for subsequent pictures, unless if the researcher optionally change them, for example to a better adequacy to new images (for example, sometimes it is necessary to redefine the binarization threshold, inicial point on the image, or to correct the central axis of the leave).
+13.	Upon completion of the group of images a message will pop out. 
+
+__Citation:__
+
+Ramirez-Arrieta, VM and D. Denis Avila (2019) Implementing a package for morphometric measurements R automated sheets from digital photographs. Tropical Biology

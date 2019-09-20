@@ -749,7 +749,6 @@ server <- function(input, output, session) {
                                                                   n.divisiones.rejilla = input$ndivisionesrejilla,
                                                                   nseqpoints = input$nseqpoints,
                                                                   addLength1 = input$addLength1,
-                                                                  addLength2 = input$addLength2,
                                                                   addbasallobepoints = input$addbasallobepoints,
                                                                   addbasallobearea = input$addbasallobearea,
                                                                   addbasalapexangle = input$addbasalapexangle,
@@ -896,13 +895,13 @@ server <- function(input, output, session) {
 
      output$eggresultslist <- renderText({
           if (is.null(rv$datos_hojas)) {"<p>No data has been processed yet</p>"} else {
-          paste("<p> Length 1 =", round(rv$datos_hojas$L1, 4), rv$datos_hojas$unit, "</p>",
-                "<p> Length 2 =", round(rv$datos_hojas$L2, 4), rv$datos_hojas$unit, "</p>",
+          paste("<p> Length =", round(rv$datos_hojas$L2, 4), rv$datos_hojas$unit, "</p>",
                 "<p> Maximum Width (Max_Width) =", round(rv$datos_hojas$Am, 4), rv$datos_hojas$unit, "</p>",
+                "<p> Lobe deepth =", round(rv$datos_hojas$L1 - rv$datos_hojas$L2, 4), rv$datos_hojas$unit, "</p>",
                 "<p> x coord of Maximum Width (x_Max_Width) =", round(rv$datos_hojas$x_Am, 4), rv$datos_hojas$unit, "</p>",
 
                 ifelse(test = !is.na(rv$datos_hojas$petiole_width),
-                       yes = paste("<p> width at the junction with the petiole (petiole_width) =", round(rv$datos_hojas$petiole_width, 4), rv$datos_hojas$unit, "</p>", collapse = " "),
+                       yes = paste("<p> width at the junction with the petiole (width_at_petiole) =", round(rv$datos_hojas$petiole_width, 4), rv$datos_hojas$unit, "</p>", collapse = " "),
                        no = ""),
                 "<p> Quantile Widths: </p> w1 = ", round(rv$datos_hojas$WQ[1], 3),  rv$datos_hojas$unit, #"</p>",
                 ", w2 = ", round(rv$datos_hojas$WQ[2], 3),  rv$datos_hojas$unit, #"</p>",

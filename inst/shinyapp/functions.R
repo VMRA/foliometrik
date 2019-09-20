@@ -221,7 +221,8 @@ write.datos_hojas <- function(datos_hojas, filename, landmarksformat = ".TPS",
      dimensiones <- paste0(img.dim[1], "X", img.dim[2])
 
      (Data <- data.frame(file = filename, Id = EggId, unit = datos_hojas$unit,
-                         Length_1 = datos_hojas$L1, Length_2 = datos_hojas$L2,
+                         Length = datos_hojas$L2,
+                         Lobe_deepth = datos_hojas$L1 - datos_hojas$L2,
                          Max_Width = datos_hojas$Am,
                          x_Max_Width  = datos_hojas$x_Am,
                          petiole_width = datos_hojas$petiole_width,
@@ -346,7 +347,7 @@ calcula.puntos.y.constantes.hoja <- function(cnts, id.pt.max.dist, filename,
                                              desv.origen.coef = 0,
                                              rejilla.de.puntos.clave = "radial",
                                              addedlandmarks = NULL,
-                                             addLength1 = TRUE, addLength2 = TRUE,
+                                             addLength1 = TRUE,
                                              addbasallobepoints = FALSE,
                                              addbasallobearea = FALSE,
                                              addbasalapexangle = TRUE,
@@ -395,7 +396,7 @@ calcula.puntos.y.constantes.hoja <- function(cnts, id.pt.max.dist, filename,
      {# largo de la hoja desde x=0
           L1 <- ifelse(addLength1, fc * max(puntos_del_vertice[, 1]), NA)
           # largo desde el origen del vertice (v1)
-          L2 <- ifelse(addLength2, fc * diff(sort(puntos_del_vertice[, 1])), NA)
+          L2 <- fc * diff(sort(puntos_del_vertice[, 1]))
           # Ancho maximo
           (Am <- fc * c(dist(puntos_de_ancho_maximo)))
           # perimetro de la hoja
@@ -508,7 +509,7 @@ calcula.puntos.y.constantes.hoja <- function(cnts, id.pt.max.dist, filename,
           WQ = WQ, Perim = Perim, SA = SA, SA_Lat_Asym = SA_Lat_Asym,
           Shape_Index = Shape_Index, angulos = angulos, puntos = puntos, cnts = cnts,
           addbasallobepoints = addbasallobepoints, basallobearea = basallobearea,
-          bases_apice_angle = bases_apice_angle, petiole_width = petiole_width)
+          bases_apice_angle = bases_apice_angle, width_at_petiole = petiole_width)
 
 }
 
